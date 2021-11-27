@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { TweetOption } from './entities/tweet-option';
 import { NgxTwitterWidgetsService } from './ngx-twitter-widgets.service';
 
@@ -6,7 +6,7 @@ import { NgxTwitterWidgetsService } from './ngx-twitter-widgets.service';
   selector: 'ngx-twitter-tweet',
   template: ''
 })
-export class NgxTwitterTweetComponent implements AfterViewInit {
+export class NgxTwitterTweetComponent implements AfterViewInit, OnChanges {
 
 
   @Input() tweetID: string;
@@ -24,6 +24,10 @@ export class NgxTwitterTweetComponent implements AfterViewInit {
 
   async ngAfterViewInit() {
     await this.loadScript();
+    this.loadWidget();
+  }
+
+  ngOnChanges(changes: SimpleChanges){
     this.loadWidget();
   }
 

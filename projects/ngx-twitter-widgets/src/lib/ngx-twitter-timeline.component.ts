@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange, SimpleChanges, ViewChild } from '@angular/core';
 import { TimelineOptions } from './entities/timeline-options';
 import { TimelineSource } from './entities/timeline-source';
 import { NgxTwitterWidgetsService } from './ngx-twitter-widgets.service';
@@ -8,7 +8,7 @@ import { NgxTwitterWidgetsService } from './ngx-twitter-widgets.service';
   template: '',
   styles: []
 })
-export class NgxTwitterTimelineComponent implements AfterViewInit {
+export class NgxTwitterTimelineComponent implements AfterViewInit, OnChanges {
 
   @Input() source: TimelineSource|object;
   @Input() options: TimelineOptions|object;
@@ -24,6 +24,10 @@ export class NgxTwitterTimelineComponent implements AfterViewInit {
 
   async ngAfterViewInit() {
     await this.loadScript();
+    this.loadWidget();
+  }
+
+  ngOnChanges(changes: SimpleChanges){
     this.loadWidget();
   }
 
